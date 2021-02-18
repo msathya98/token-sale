@@ -42,7 +42,7 @@ contract('DappToken', function(accounts)
 
     }).then(assert.fail).catch(function(error){
       assert(error.message.indexOf('revert') >= 0, "error message must contain revert");
-      return tokenInstance.transfer(accounts[1], 2500, { from: accounts[0] } );
+      return tokenInstance.transfer(accounts[1], 2500000, { from: accounts[0] } );
     }).then(function(receipt) {
       assert.equal(receipt.logs.length, 1, "triggers one event ");
       assert.equal(receipt.logs[0].event, "Transfer", 'should be the "transfer" event');
@@ -51,7 +51,7 @@ contract('DappToken', function(accounts)
       assert.equal(receipt.logs[0].args._value, 2500000, "logs the transfer amount");
       return tokenInstance.balanceOf(accounts[1]); 
     }).then(function(balance){
-      assert.equal(balance.toNumber(), 2500, "adds the amount to the recieving account");
+      assert.equal(balance.toNumber(), 2500000, "adds the amount to the recieving account");
       return tokenInstance.balanceOf(accounts[0]);
     }).then(function(balance){
       assert.equal(balance.toNumber(), 997500, "deduct the amount from the sending account")
